@@ -24,6 +24,7 @@ def main():
             i = i+1
             print(lista)
             left.append(lista)
+            print("hola")
     print(left)
     print("Ingresar los valores de cada columna")
     while j < columns:
