@@ -22,7 +22,7 @@ def create_block(matriz, bloques, i, j, k, var_check, var_inicio, size):
         # print("inicio= ", inicio, "final= ", final, " ",)
         aux = []
         if var_inicio[0] == final and var_inicio[0] != -1:
-            aux = [var_inicio[0]]
+            aux = [var_inicio[0], var_inicio[0]]
             bloques.append(aux)
             var_inicio[0] = -1
 
@@ -101,6 +101,22 @@ def completar_primer_numero(matriz, num, fila, posini, identificador):
         if num > 1:
             for i in range(posini, posini+num):
                 matriz[i][fila] = 1
+
+
+def completar_ultimo(matriz, num, fila, posini, identificador):
+    if identificador == "fila":
+        while num > 0:
+            matriz[fila][posini] = 1
+            num -= 1
+            posini -= 1
+        matriz[fila][posini] = -1
+
+    if identificador == "columna":
+        while num > 0:
+            matriz[posini][fila] = 1
+            num -= 1
+            posini -= 1
+        matriz[posini][fila] = -1
 
 
 def verificar_estado(matriz, indice_constante, largo, array_principal, identificador):
