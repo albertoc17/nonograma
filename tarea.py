@@ -101,10 +101,8 @@ def main():
                     print(last_number)
                     rules.completar_ultimo(matriz, last_number, i, ultima_casilla, "fila")
                 # verificar posibilidad de ingresar bloque
-                size_firs_block = len(bloques[0])
-                size_last_block = len(bloques[len(bloques) - 1])
-                if rules.verificar_num_bloque(first_number, last_number, size_firs_block, size_last_block, "fila"):
-                    print("pintando x en la matriz")
+
+                rules.verificar_num_bloque(matriz, bloques, first_number, last_number, i,  "fila")
 
         print_matrix(matriz, rows, columns)
         input()
