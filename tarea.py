@@ -163,7 +163,7 @@ def main():
             if len(bloques) > 0:
                 ultima_casilla = bloques[len(bloques)-1][1]
                 if matriz[ultima_casilla][j] == 1:
-                    numero = int(top[j][0])
+                    numero = int(top[j][1])
                     rules.completar_ultimo(matriz, numero, j, ultima_casilla, "columna")
 
         print_matrix(matriz, rows, columns)
