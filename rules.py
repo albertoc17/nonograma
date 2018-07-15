@@ -1,19 +1,50 @@
+def create_block(matriz, bloques, i, j, k, var_check, var_inicio, size):
+    # Calculo de bloques seguidos
+    # Se calcula todos los bloques de cada fila para su posterior uso en cada una
+    # de las reglas anteriores
+    # Marca el inicio de cuadrados vacios
+
+    final = -1
+    if matriz[i][j] != -1 and not var_check[0]:
+        var_inicio[0] = k
+        var_check[0] = True
+
+    # Demarca el final de los bloques en blancos seguidos
+    if (matriz[i][j] == -1 or k == size - 1) and var_inicio[0] != -1:
+
+        if matriz[i][j] == -1 and k != size - 1:
+            final = k - 1
+        if matriz[i][j] == -1 and k == size - 1:
+            final = k - 1
+        if matriz[i][j] != -1 and k == size - 1:
+            final = k
+
+        # print("inicio= ", inicio, "final= ", final, " ",)
+        aux = []
+        if var_inicio[0] == final and var_inicio[0] != -1:
+            aux = [var_inicio[0]]
+            bloques.append(aux)
+            var_inicio[0] = -1
+
+        if var_inicio[0] != final and var_inicio[0] != - 1:
+            aux = [var_inicio[0], final]
+            bloques.append(aux)
+            var_inicio[0] = -1
+        var_check[0] = False
+
+
 def cuadrados_mutuos_filas(matriz, left, inicio, final, i):
     # si existe un solo numero en el array entonces se puede realizar los cuadrados mutuos
     if len(left[i]) == 1:
         # print("tiene largo 1 ",left[i])
         rango_inicial = final+1-int(left[i][0])
         rango_final = inicio+int(left[i][0])-1
-        agregar_cuadrados_filas(matriz, rango_inicial, rango_final, i)
+        for j in range(rango_inicial, rango_final + 1):
+            matriz[i][j] = 1
         # print("Rango inicial",rango_inicial," Rango final",rango_final)
     # else: #Si existe mas de un numero en el array entonces se debe verificar si se
     # puede ingresar en el bloque inicial o final del numero del array inicial o final respectivamente
     # print("entra else")
-
-
-def agregar_cuadrados_filas(matriz, rango_inicial, rango_final, i):
-    for j in range(rango_inicial, rango_final+1):
-        matriz[i][j] = 1
 
 
 def cuadrados_mutuos_columnas(matriz, left, inicio, final, j):
@@ -22,16 +53,12 @@ def cuadrados_mutuos_columnas(matriz, left, inicio, final, j):
         # print("tiene largo 1 ",left[i])
         rango_inicial = final+1-int(left[j][0])
         rango_final = inicio+int(left[j][0])-1
-        agregar_cuadrados_columnas(matriz, rango_inicial, rango_final, j)
+        for i in range(rango_inicial, rango_final + 1):
+            matriz[i][j] = 1
         # print("Rango inicial",rango_inicial," Rango final",rango_final)
     else:   # Si existe mas de un numero en el array entonces se debe verificar
             # si se puede ingresar en el bloque inicial o final del numero del array inicial o final respectivamente
         print("entra else")
-
-
-def agregar_cuadrados_columnas(matriz, rango_inicial, rango_final, j):
-    for i in range(rango_inicial, rango_final+1):
-        matriz[i][j] = 1
 
 
 def agregar_cuadrados_perfectos_columna(matriz, top, j, size, rows):
@@ -151,3 +178,39 @@ def marcar_casillas(matriz, indice_constante, rango_inicial, rango_final, numero
             for i in range(rango_inicial, rango_final):
                 if matriz[i][indice_constante] != 1:
                     matriz[i][indice_constante] = -1
+
+
+def interseccion_cuadrados_multiples(matriz, array, size, const, id):
+    list_left = [-1] * size
+    list_right = [-1] * size
+    iter = 0
+    # Se crea la lista izquierda
+    for i in range(0, len(array)):
+        cont = 0
+        num = int(array[i])
+        while cont < num:
+            list_left[iter] = i
+            cont += 1
+            iter += 1
+        iter += 1
+    # Se crea la lista derecha
+    iter = size-1
+    for i in range(len(array)-1, -1, -1):
+        cont = 0
+        num = int(array[i])
+        while cont < num:
+            list_right[iter] = i
+            cont += 1
+            iter -= 1
+        iter -= 1
+
+    # Se intersectan estas listas buscando igualdades en sus numeros
+    for i in range(0, size):
+        if list_right[i] == list_left[i] and list_right[i] != -1:
+            print("i =",i)
+            if id == "filas":
+                matriz[const][i] = 1
+            if id == "columna":
+                matriz[i][const] = 1
+    print(list_left)
+    print(list_right)
