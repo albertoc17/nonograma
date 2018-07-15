@@ -238,3 +238,19 @@ def interseccion_cuadrados_multiples(matriz, array, size, const, id):
                 matriz[i][const] = 1
 
 
+def verificar_num_bloque(first_number, last_number, size_first_block, size_last_block, id):
+    flag = False
+    if id == "fila":
+        if first_number > size_first_block:
+            flag = True
+        if last_number > size_last_block:
+            flag = True
+    if id == "columna":
+        if first_number > size_first_block:
+            flag = True
+        if last_number > size_last_block:
+            flag = True
+    return flag
+
+
+

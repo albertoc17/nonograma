@@ -1,4 +1,4 @@
-from nonograma import rules
+import rules
 inicio = -1
 check = False
 def main():
@@ -64,7 +64,6 @@ def main():
                sum = sum + int(left[i][k])
             sum = sum + len(left[i]) - 1
 
-
             if sum == columns:
                 # print(sum)
                 rules.agregar_cuadrados_perfectos_fila(matriz, left, i, size)
@@ -92,17 +91,20 @@ def main():
             if len(bloques) > 0:
                 primera_pos = bloques[0][0]
                 first_number = int(left[i][0])
-                if matriz[i][primera_pos] == 1 :
+
+                if matriz[i][primera_pos] == 1:
                     rules.completar_primer_numero(matriz, first_number, i, primera_pos, "fila", columns)
-            if len(bloques) > 0:
                 ultima_casilla = bloques[len(bloques) - 1][1]
                 last_number = int(left[i][len(left[i]) - 1])
 
                 if matriz[i][ultima_casilla] == 1:
                     print(last_number)
                     rules.completar_ultimo(matriz, last_number, i, ultima_casilla, "fila")
-                    first_number = int(left[i][0])
-
+                # verificar posibilidad de ingresar bloque
+                size_firs_block = len(bloques[0])
+                size_last_block = len(bloques[len(bloques) - 1])
+                if rules.verificar_num_bloque(first_number, last_number, size_firs_block, size_last_block, "fila"):
+                    print("pintando x en la matriz")
 
         print_matrix(matriz, rows, columns)
         input()
@@ -116,7 +118,7 @@ def main():
             var_check.append(False)
             var_inicio.append(-1)
             for i in range(0, rows):
-                rules.create_block(matriz, bloques, i, j, i,var_check, var_inicio, rows)
+                rules.create_block(matriz, bloques, i, j, i, var_check, var_inicio, rows)
             print("j=", j, " ", bloques)
 
             # Verificar Estado
@@ -159,15 +161,16 @@ def main():
                 if matriz[primera_pos][j] == 1:
                     numero = int(top[j][0])
                     rules.completar_primer_numero(matriz, numero, j, primera_pos, "columna", rows)
-            if len(bloques) > 0:
                 ultima_casilla = bloques[len(bloques) - 1][1]
                 if matriz[ultima_casilla][j] == 1:
                     numero = int(top[j][1])
                     rules.completar_ultimo(matriz, numero, j, ultima_casilla, "columna")
+                size_firs_block = len(bloques[0])
+                size_last_block = len(bloques[len(bloques) - 1])
+                if rules.verificar_num_bloque(primera_pos, ultima_casilla, size_firs_block, size_last_block, "columna"):
+                    print("pintando x en la matriz")
         print_matrix(matriz, rows, columns)
         input()
-
-
 
 
 def create_matrix(rows, columns):
