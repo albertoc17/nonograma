@@ -1,8 +1,8 @@
-import rules
-
-
+from nonograma import rules
+inicio = -1
+check = False
 def main():
-
+    global inicio, check
     print("Ingrese Cantidad de filas ")
     rows = int(input())
     print("Ingrese Cantidad de Columnas ")
@@ -40,9 +40,9 @@ def main():
 
     # Resolucion del Problema
 
-    unavez = 0
+
     # Loop del problema mientras no encuentre solucion no debe parar su ejecucion
-    while unavez == 0:
+    while True:
         print(" ")
         print("-------------------------------------")
         print("Loop Filas")
@@ -50,44 +50,12 @@ def main():
         # Recorrido por FILAS
         for i in range(0, rows):
             bloques = []
-            largo = 0
-            inicio = -1
-            final = -1
-            check = False
+            var_check = []
+            var_inicio = []
+            var_check.append(False)
+            var_inicio.append(-1)
             for j in range(0, columns):
-                # Calculo de bloques seguidos
-                # Se calcula todos los bloques de cada fila para su posterior uso en cada una
-                # de las reglas anteriores
-                # Marca el inicio de cuadrados vacios
-                if matriz[i][j] != -1 and not check:
-                    inicio = j
-                    check = True
-                # Suma los bloques en blanco seguidos
-                if matriz[i][j] != -1 and check:
-                    largo = largo + 1
-                # Demarca el final de los bloques en blancos seguidos
-                if (matriz[i][j] == -1 or j == columns-1) and inicio != -1:
-
-                    if matriz[i][j] == -1 and j != columns-1:
-                        final = j-1
-                    if matriz[i][j] == -1 and j == columns-1:
-                        final = j-1
-                    if matriz[i][j] != -1 and j == columns-1:
-                        final = j
-
-                    # print("inicio= ", inicio, "final= ", final, " ",)
-                    aux = []
-                    if inicio == final and inicio != -1:
-                        aux = [inicio]
-                        bloques.append(aux)
-                        inicio = -1
-
-                    if inicio != final and inicio != - 1:
-                        aux = [inicio, final]
-                        bloques.append(aux)
-                        inicio = -1
-                    check = False
-                    largo = 0
+                rules.create_block(matriz, bloques, i, j, j, var_check, var_inicio, columns)
             print("i=", i, " ", bloques)
             # Verificacion Estado
             rules.verificar_estado(matriz, i, columns, left[i], "fila")
@@ -104,7 +72,7 @@ def main():
                 # print(sum)
                 rules.agregar_cuadrados_perfectos_fila(matriz, left, i, size)
 
-        # Cuadrados Mutuos
+        # Interseccion de Cuadrados
             tamano_bloque = len(bloques)
             tamano_array = len(left[i])
             # print("tamaño del array",tamano_array)
@@ -115,8 +83,10 @@ def main():
                     if tamano_bloque == 1 and tamano_array == 1 and float(left[i][0]) > (bloques[0][1]-bloques[0][0]+1)/2:
                         # print(" bloque[0]",bloques[0][0]," bloque[1]",bloques[0][1])
                         rules.cuadrados_mutuos_filas(matriz, left, bloques[0][0], bloques[0][1], i)
+                if len(left[i]) > 1:
+                    rules.interseccion_cuadrados_multiples(matriz, left[i], columns, i, "filas")
 
-        # Completar primero
+        # Completar primer numero
 
         # Si en el primer bloque de la fila/columna se encuentra la primera posicion rellenada (■)
         # entonces se debe rellenar los cuadros para completar el primer numero del array
@@ -136,47 +106,12 @@ def main():
         print("Loop Columnas")
         for j in range(0, columns):
             bloques = []
-            largo = 0
-            inicio = -1
-            final = -1
-            check = False
+            var_check = []
+            var_inicio = []
+            var_check.append(False)
+            var_inicio.append(-1)
             for i in range(0, rows):
-                # Calculo de bloques seguidos---
-                # Marca el inicio de cuadrados vacios
-                if matriz[i][j] != -1 and not check:
-                    inicio = i
-                    check = True
-                # suma los bloques en blanco seguidos
-                if matriz[i][j] != -1 and check:
-                    largo = largo + 1
-                # Demarca el final de los bloques en blancos seguidos
-                if (matriz[i][j] == -1 or i == rows - 1) and inicio != -1:
-                    if matriz[i][j] == -1 and i != rows-1:
-                        final = i - 1
-                    if matriz[i][j] == -1 and i == rows-1:
-                        final = i - 1
-                    if matriz[i][j] != -1 and i == rows-1:
-                        final = i
-
-                    aux = []
-                    if inicio == final and inicio != -1:
-                        aux = [inicio]
-                        bloques.append(aux)
-                        inicio = -1
-
-                    if inicio != final and inicio != -1:
-                        aux = [inicio, final]
-                        bloques.append(aux)
-                        inicio = -1
-
-                    check = False
-                    largo = 0
-                    # aux=[inicio,final]
-                    # bloques.append(aux)
-                    # print(bloques)
-                    # se procede a guardar los diferentes bloques para su posterior
-                    # verificacion y a resetear el inicio y el final
-                    # print(inicio, " ", final)
+                rules.create_block(matriz, bloques, i, j, i,var_check, var_inicio, rows)
             print("j=", j, " ", bloques)
 
             # Verificar Estado
@@ -206,6 +141,8 @@ def main():
                 if len(bloques[0]) > 1:
                     if tamano_bloque == 1 and tamano_array == 1 and float(top[j][0]) > (bloques[0][1] - bloques[0][0] + 1) / 2:
                         rules.cuadrados_mutuos_columnas(matriz, top, bloques[0][0], bloques[0][1], j)
+                if len(top[j]) > 1:
+                    rules.interseccion_cuadrados_multiples(matriz, top[j], rows, j, "columna")
 
             # Completar primero
             # Si en el primer bloque de la fila/columna se encuentra la primera posicion rellenada (■)
@@ -220,7 +157,7 @@ def main():
 
         print_matrix(matriz, rows, columns)
         input()
-        # unavez = unavez + 1
+
 
 
 def create_matrix(rows, columns):
