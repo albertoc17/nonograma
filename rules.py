@@ -111,6 +111,23 @@ def completar_primer_numero(matriz, num, fila, posini, identificador, size):
         if num == 1 and posini+1 < size:
             matriz[posini+1][fila] = -1
 
+
+def completar_ultimo(matriz, num, fila, posini, identificador):
+    if identificador == "fila":
+        while num > 0:
+            matriz[fila][posini] = 1
+            num -= 1
+            posini -= 1
+        matriz[fila][posini] = -1
+
+    if identificador == "columna":
+        while num > 0:
+            matriz[posini][fila] = 1
+            num -= 1
+            posini -= 1
+        matriz[posini][fila] = -1
+
+
 def verificar_estado(matriz, indice_constante, largo, array_principal, identificador):
 
     if identificador == "fila":

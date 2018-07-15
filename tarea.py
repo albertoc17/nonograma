@@ -94,6 +94,14 @@ def main():
                 first_number = int(left[i][0])
                 if matriz[i][primera_pos] == 1 :
                     rules.completar_primer_numero(matriz, first_number, i, primera_pos, "fila", columns)
+            if len(bloques) > 0:
+                ultima_casilla = bloques[len(bloques) - 1][1]
+                last_number = int(left[i][len(left[i]) - 1])
+
+                if matriz[i][ultima_casilla] == 1:
+                    print(last_number)
+                    rules.completar_ultimo(matriz, last_number, i, ultima_casilla, "fila")
+                    first_number = int(left[i][0])
 
 
         print_matrix(matriz, rows, columns)
@@ -151,7 +159,11 @@ def main():
                 if matriz[primera_pos][j] == 1:
                     numero = int(top[j][0])
                     rules.completar_primer_numero(matriz, numero, j, primera_pos, "columna", rows)
-
+            if len(bloques) > 0:
+                ultima_casilla = bloques[len(bloques) - 1][1]
+                if matriz[ultima_casilla][j] == 1:
+                    numero = int(top[j][1])
+                    rules.completar_ultimo(matriz, numero, j, ultima_casilla, "columna")
         print_matrix(matriz, rows, columns)
         input()
 
