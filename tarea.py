@@ -24,7 +24,6 @@ def main():
             i = i+1
             print(lista)
             left.append(lista)
-            print("hola")
     print(left)
     print("Ingresar los valores de cada columna")
     while j < columns:
@@ -39,8 +38,6 @@ def main():
     print_matrix(matriz, rows, columns)
 
     # Resolucion del Problema
-
-
     # Loop del problema mientras no encuentre solucion no debe parar su ejecucion
     while True:
         print(" ")
@@ -94,10 +91,10 @@ def main():
 
             if len(bloques) > 0:
                 primera_pos = bloques[0][0]
-                numero = int(left[i][0])
-                if matriz[i][primera_pos] == 1 and numero > 1:
-                    print(numero)
-                    rules.completar_primer_numero(matriz, numero, i, primera_pos, "fila")
+                first_number = int(left[i][0])
+                if matriz[i][primera_pos] == 1 :
+                    rules.completar_primer_numero(matriz, first_number, i, primera_pos, "fila", columns)
+
 
         print_matrix(matriz, rows, columns)
         input()
@@ -144,20 +141,20 @@ def main():
                 if len(top[j]) > 1:
                     rules.interseccion_cuadrados_multiples(matriz, top[j], rows, j, "columna")
 
-            # Completar primero
+            # Completar primer numero
             # Si en el primer bloque de la fila/columna se encuentra la primera posicion rellenada (■)
             # entonces se debe rellenar los cuadros para completar el primer numero del array
 
             if len(bloques) > 0:
                 primera_pos = bloques[0][0]
-                print("primera_pos ", primera_pos)
+                # print("primera_pos ", primera_pos)
                 if matriz[primera_pos][j] == 1:
                     numero = int(top[j][0])
-                    rules.completar_primer_numero(matriz, numero, j, primera_pos, "columna")
+                    rules.completar_primer_numero(matriz, numero, j, primera_pos, "columna", rows)
 
         print_matrix(matriz, rows, columns)
         input()
-        
+
 
 
 
