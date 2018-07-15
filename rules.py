@@ -92,16 +92,24 @@ def agregar_cuadrados_perfectos_fila(matriz, left, i, size):
             count += 1
 
 
-def completar_primer_numero(matriz, num, fila, posini, identificador):
+def completar_primer_numero(matriz, num, fila, posini, identificador, size):
     if identificador == "fila":
-        for i in range(posini, posini+num):
-            matriz[fila][i] = 1
+        if num != 1:
+            for i in range(posini, posini+num):
+                matriz[fila][i] = 1
+            if i+1 < size:
+                matriz[fila][i+1] = -1
+        if num == 1 and posini+1 < size:
+            matriz[fila][posini+1] = -1
 
     if identificador == "columna":
-        if num > 1:
+        if num != 1:
             for i in range(posini, posini+num):
                 matriz[i][fila] = 1
-
+            if i+1 < size:
+                matriz[i+1][fila] = -1
+        if num == 1 and posini+1 < size:
+            matriz[posini+1][fila] = -1
 
 def completar_ultimo(matriz, num, fila, posini, identificador):
     if identificador == "fila":

@@ -66,7 +66,7 @@ def main():
             for k in range(0, size):
                 sum = sum + int(left[i][k])
             sum = sum + len(left[i]) - 1
-            # print(sum)
+
 
             if sum == columns:
                 # print(sum)
@@ -104,6 +104,10 @@ def main():
                 if matriz[i][ultima_casilla] == 1:
                     print(last_number)
                     rules.completar_ultimo(matriz, last_number, i, ultima_casilla, "fila")
+                first_number = int(left[i][0])
+                if matriz[i][primera_pos] == 1 :
+                    rules.completar_primer_numero(matriz, first_number, i, primera_pos, "fila", columns)
+
 
         print_matrix(matriz, rows, columns)
         input()
@@ -150,13 +154,13 @@ def main():
                 if len(top[j]) > 1:
                     rules.interseccion_cuadrados_multiples(matriz, top[j], rows, j, "columna")
 
-            # Completar primero
+            # Completar primer numero
             # Si en el primer bloque de la fila/columna se encuentra la primera posicion rellenada (■)
             # entonces se debe rellenar los cuadros para completar el primer numero del array
 
             if len(bloques) > 0:
                 primera_pos = bloques[0][0]
-                print("primera_pos ", primera_pos)
+                # print("primera_pos ", primera_pos)
                 if matriz[primera_pos][j] == 1:
                     numero = int(top[j][0])
                     rules.completar_primer_numero(matriz, numero, j, primera_pos, "columna")
@@ -165,10 +169,11 @@ def main():
                 if matriz[ultima_casilla][j] == 1:
                     numero = int(top[j][1])
                     rules.completar_ultimo(matriz, numero, j, ultima_casilla, "columna")
+                    rules.completar_primer_numero(matriz, numero, j, primera_pos, "columna", rows)
 
         print_matrix(matriz, rows, columns)
         input()
-        
+
 
 def create_matrix(rows, columns):
     matriz = [0] * rows
