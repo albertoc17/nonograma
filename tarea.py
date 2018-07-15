@@ -63,7 +63,7 @@ def main():
             for k in range(0, size):
                sum = sum + int(left[i][k])
             sum = sum + len(left[i]) - 1
-            # print(sum)
+
 
             if sum == columns:
                 # print(sum)

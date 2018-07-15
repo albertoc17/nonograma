@@ -104,7 +104,6 @@ def completar_primer_numero(matriz, num, fila, posini, identificador, size):
 
     if identificador == "columna":
         if num != 1:
-
             for i in range(posini, posini+num):
                 matriz[i][fila] = 1
             if i+1 < size:
