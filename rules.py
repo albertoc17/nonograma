@@ -211,3 +211,4 @@ def interseccion_cuadrados_multiples(matriz, array, size, const, id):
                 matriz[const][i] = 1
             if id == "columna":
                 matriz[i][const] = 1
+
