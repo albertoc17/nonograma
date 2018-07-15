@@ -207,10 +207,7 @@ def interseccion_cuadrados_multiples(matriz, array, size, const, id):
     # Se intersectan estas listas buscando igualdades en sus numeros
     for i in range(0, size):
         if list_right[i] == list_left[i] and list_right[i] != -1:
-            print("i =",i)
             if id == "filas":
                 matriz[const][i] = 1
             if id == "columna":
                 matriz[i][const] = 1
-    print(list_left)
-    print(list_right)
