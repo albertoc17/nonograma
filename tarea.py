@@ -161,8 +161,11 @@ def main():
                     rules.completar_primer_numero(matriz, numero, j, primera_pos, "columna", rows)
             if len(bloques) > 0:
                 ultima_casilla = bloques[len(bloques) - 1][1]
+
                 if matriz[ultima_casilla][j] == 1:
-                    numero = int(top[j][1])
+                    #ultimo numero del array de top
+                    numero = int(top[j][len(top[j])-1])
+                    print(numero)
                     rules.completar_ultimo(matriz, numero, j, ultima_casilla, "columna")
         print_matrix(matriz, rows, columns)
         input()
