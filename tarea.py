@@ -1,4 +1,4 @@
-import rules
+from nonograma import rules
 inicio = -1
 check = False
 def main():
@@ -75,10 +75,10 @@ def main():
             # print("tamaño ", tamano_bloque)
             # Si el tamaño del bloque es del largo de la columna y el array es un solo numero
             if len(bloques) > 0:
-                if len(bloques[0]) > 1:
-                    if tamano_bloque == 1 and tamano_array == 1 and float(left[i][0]) > (bloques[0][1]-bloques[0][0]+1)/2:
-                        # print(" bloque[0]",bloques[0][0]," bloque[1]",bloques[0][1])
-                        rules.cuadrados_mutuos_filas(matriz, left, bloques[0][0], bloques[0][1], i)
+                #if len(bloques[0]) > 1:
+                if tamano_bloque == 1 and tamano_array == 1 and float(left[i][0]) > (bloques[0][1]-bloques[0][0]+1)/2:
+                    # print(" bloque[0]",bloques[0][0]," bloque[1]",bloques[0][1])
+                    rules.cuadrados_mutuos_filas(matriz, left, bloques[0][0], bloques[0][1], i)
                 if len(left[i]) > 1:
                     rules.interseccion_cuadrados_multiples(matriz, left[i], columns, i, "filas")
 
@@ -94,14 +94,18 @@ def main():
 
                 if matriz[i][primera_pos] == 1:
                     rules.completar_primer_numero(matriz, first_number, i, primera_pos, "fila", columns)
+                    print_matrix(matriz, rows, columns)
+                    input()
                 ultima_casilla = bloques[len(bloques) - 1][1]
                 last_number = int(left[i][len(left[i]) - 1])
 
                 if matriz[i][ultima_casilla] == 1:
-                    print(last_number)
-                    rules.completar_ultimo(matriz, last_number, i, ultima_casilla, "fila")
-                # verificar posibilidad de ingresar bloque
 
+                    rules.completar_ultimo(matriz, last_number, i, ultima_casilla, "fila")
+                    print_matrix(matriz, rows, columns)
+                    input()
+                # verificar posibilidad de ingresar bloque
+                print("ultimo numero del array = ", last_number)
                 rules.verificar_num_bloque(matriz, bloques, first_number, last_number, i,  "fila")
 
         print_matrix(matriz, rows, columns)
@@ -143,9 +147,9 @@ def main():
             tamano_array = len(top[j])
 
             if len(bloques) > 0:
-                if len(bloques[0]) > 1:
-                    if tamano_bloque == 1 and tamano_array == 1 and float(top[j][0]) > (bloques[0][1] - bloques[0][0] + 1) / 2:
-                        rules.cuadrados_mutuos_columnas(matriz, top, bloques[0][0], bloques[0][1], j)
+                #if len(bloques[0]) > 1:
+                if tamano_bloque == 1 and tamano_array == 1 and float(top[j][0]) > (bloques[0][1] - bloques[0][0] + 1) / 2:
+                    rules.cuadrados_mutuos_columnas(matriz, top, bloques[0][0], bloques[0][1], j)
                 if len(top[j]) > 1:
                     rules.interseccion_cuadrados_multiples(matriz, top[j], rows, j, "columna")
 
@@ -159,14 +163,21 @@ def main():
                 if matriz[primera_pos][j] == 1:
                     numero = int(top[j][0])
                     rules.completar_primer_numero(matriz, numero, j, primera_pos, "columna", rows)
+                    print("Completar primero")
+                    print_matrix(matriz, rows, columns)
+                    input()
                 ultima_casilla = bloques[len(bloques) - 1][1]
                 if matriz[ultima_casilla][j] == 1:
-                    numero = int(top[j][1])
+                    numero = int(top[j][len(top[j]) - 1])
                     rules.completar_ultimo(matriz, numero, j, ultima_casilla, "columna")
-                size_firs_block = len(bloques[0])
-                size_last_block = len(bloques[len(bloques) - 1])
-                if rules.verificar_num_bloque(primera_pos, ultima_casilla, size_firs_block, size_last_block, "columna"):
-                    print("pintando x en la matriz")
+                    print("completar ultimo")
+                    print_matrix(matriz, rows, columns)
+                    input()
+                first_number = int(top[j][0])
+                last_number = int(top[j][len(top[j]) - 1])
+                #print("primer numero ", first_number, "ultimo numero", last_number)
+                rules.verificar_num_bloque(matriz, bloques, first_number, last_number, j, "columna")
+                print("pintando x en la matriz")
         print_matrix(matriz, rows, columns)
         input()
 

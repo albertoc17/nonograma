@@ -104,6 +104,7 @@ def completar_primer_numero(matriz, num, fila, posini, identificador, size):
 
     if identificador == "columna":
         if num != 1:
+            print("pos_ini = ", posini, "num = ", num)
             for i in range(posini, posini+num):
                 matriz[i][fila] = 1
             if i+1 < size:
@@ -148,7 +149,7 @@ def verificar_estado(matriz, indice_constante, largo, array_principal, identific
             if array_principal[j] != " ":
                 contador_numero_array = contador_numero_array + int(array_principal[j])
         if contador_numero_array == contador_cuadrado:
-            print("contador_cuadrados", contador_cuadrado, " contador_numero", contador_numero_array)
+            #print("contador_cuadrados", contador_cuadrado, " contador_numero", contador_numero_array)
             marcar_casillas(matriz, indice_constante, 0, largo, numero, "fila")
 
     # Si el identificador es columna se debe ralizar la operacion segun la logica de la columna
@@ -169,7 +170,7 @@ def verificar_estado(matriz, indice_constante, largo, array_principal, identific
                 contador_numero_array = contador_numero_array + int(array_principal[j])
 
         if contador_numero_array == contador_cuadrado:
-            print("contador_cuadrados", contador_cuadrado, " contador_numero", contador_numero_array)
+            #print("contador_cuadrados", contador_cuadrado, " contador_numero", contador_numero_array)
             marcar_casillas(matriz, indice_constante, 0, largo, numero, "columna")
 # Marca las casillas vacias con X
 
@@ -240,22 +241,36 @@ def interseccion_cuadrados_multiples(matriz, array, size, const, id):
 
 def verificar_num_bloque(matriz, bloques, first_number, last_number, posini, id):
     flag = False
-    i = bloques[0][0]
-    size_first_block = len(bloques[0])
-    size_last_block = len(bloques[len(bloques) - 1])
-    if id == "fila":
-        if first_number > size_first_block:
-            while first_number > 0:
+    #posicion inicial
+    i = bloques[0][1]
+    size_first_block = bloques[0][1] - bloques[0][0] + 1
+    largo_bloque = len(bloques)
+    size_last_block = bloques[largo_bloque - 1][1] - bloques[largo_bloque - 1][0] + 1
+    j = bloques[largo_bloque - 1][1]
+    #print(size_last_block)
+
+        #print("first_number = ",first_number," size_first_block =",size_first_block, "posini", posini,"i ",i)
+
+        #Verificar si se puede ingresar la cantidad de cuadrados del primer numero en el primer bloque
+    if first_number > size_first_block:
+        while size_first_block > 0:
+            if id == "fila":
                 matriz[posini][i] = -1
-                first_number -= 1
-                i -= 1
-        if last_number > size_last_block:
-            flag = True
-    if id == "columna":
-        if first_number > size_first_block:
-            flag = True
-        if last_number > size_last_block:
-            flag = True
+            if id == "columna":
+                matriz[i][posini] = -1
+            size_first_block -= 1
+            i -= 1
+
+
+
+    if last_number > size_last_block:
+        while size_last_block > 0:
+            if id == "fila":
+                matriz[posini][j] = -1
+            if id == "columna":
+                matriz[j][posini] = -1
+            size_last_block -= 1
+            j -= 1
     return flag
 
 
