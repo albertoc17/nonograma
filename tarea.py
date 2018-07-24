@@ -94,16 +94,15 @@ def main():
 
                 if matriz[i][primera_pos] == 1:
                     rules.completar_primer_numero(matriz, first_number, i, primera_pos, "fila", columns)
-                    print_matrix(matriz, rows, columns)
-                    input()
+
                 ultima_casilla = bloques[len(bloques) - 1][1]
                 last_number = int(left[i][len(left[i]) - 1])
 
                 if matriz[i][ultima_casilla] == 1:
 
-                    rules.completar_ultimo(matriz, last_number, i, ultima_casilla, "fila")
-                    print_matrix(matriz, rows, columns)
-                    input()
+                    rules.completar_ultimo(matriz, last_number, i, ultima_casilla, "fila", columns)
+
+
                 # verificar posibilidad de ingresar bloque
                 print("ultimo numero del array = ", last_number)
                 rules.verificar_num_bloque(matriz, bloques, first_number, last_number, i,  "fila")
@@ -163,16 +162,14 @@ def main():
                 if matriz[primera_pos][j] == 1:
                     numero = int(top[j][0])
                     rules.completar_primer_numero(matriz, numero, j, primera_pos, "columna", rows)
-                    print("Completar primero")
-                    print_matrix(matriz, rows, columns)
-                    input()
+
+
                 ultima_casilla = bloques[len(bloques) - 1][1]
                 if matriz[ultima_casilla][j] == 1:
                     numero = int(top[j][len(top[j]) - 1])
-                    rules.completar_ultimo(matriz, numero, j, ultima_casilla, "columna")
-                    print("completar ultimo")
-                    print_matrix(matriz, rows, columns)
-                    input()
+                    rules.completar_ultimo(matriz, numero, j, ultima_casilla, "columna", rows)
+
+
                 first_number = int(top[j][0])
                 last_number = int(top[j][len(top[j]) - 1])
                 #print("primer numero ", first_number, "ultimo numero", last_number)
