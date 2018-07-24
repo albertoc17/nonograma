@@ -275,4 +275,36 @@ def verificar_num_bloque(matriz, bloques, first_number, last_number, posini, id)
     return flag
 
 
+def pintar_cuadrados_vacios(matriz, array, indice, size, identificador):
+    #Contar los cuadrados vacios y los pintados
+    print("hola")
+    cuadrados_vacios = 0
+    cuadrados_pintados = 0
+    suma_numeros = 0
+    for i in range(0, len(array)):
+        suma_numeros = suma_numeros + int(array[i])
+    for i in range(0, size):
+        if identificador == "fila":
+            if matriz[indice][i] == 0:
+                cuadrados_vacios += 1
+            if matriz[indice][i] == 1:
+                cuadrados_pintados += 1
+        if identificador == "columna":
+            if matriz[i][indice] == 0:
+                cuadrados_vacios += 1
+            if matriz[i][indice] == 1:
+                cuadrados_pintados += 1
+    print("suma_numero=",suma_numeros," suma pintados ",cuadrados_pintados," suma vacios ",cuadrados_vacios)
+    #Si el numero de cuadrados pintados mas el numero de cuadrados vacios es igual a la
+    #suma de los numeros del array (costados) entonces no existe otra posibilidad mas que pintar
+    #todos los cuadrados vacios
+    if cuadrados_pintados + cuadrados_vacios == suma_numeros:
+        for i in range(0, size):
+            if identificador == "fila":
+                if matriz[indice][i] == 0:
+                    matriz[indice][i] = 1
+            if identificador == "columna":
+                if matriz[i][indice] == 0:
+                    matriz[i][indice] = 1
+
 

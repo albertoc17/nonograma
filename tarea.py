@@ -107,6 +107,8 @@ def main():
                 print("ultimo numero del array = ", last_number)
                 rules.verificar_num_bloque(matriz, bloques, first_number, last_number, i,  "fila")
 
+        #Pintar cuadrados vacios
+            rules.pintar_cuadrados_vacios(matriz, left[i], i, columns, "fila")
         print_matrix(matriz, rows, columns)
         input()
 
@@ -174,7 +176,10 @@ def main():
                 last_number = int(top[j][len(top[j]) - 1])
                 #print("primer numero ", first_number, "ultimo numero", last_number)
                 rules.verificar_num_bloque(matriz, bloques, first_number, last_number, j, "columna")
-                print("pintando x en la matriz")
+
+
+            # Pintar cuadrados vacios
+            rules.pintar_cuadrados_vacios(matriz, top[j], j, rows, "columna")
         print_matrix(matriz, rows, columns)
         input()
 
