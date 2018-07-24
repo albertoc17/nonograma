@@ -104,7 +104,7 @@ def completar_primer_numero(matriz, num, fila, posini, identificador, size):
 
     if identificador == "columna":
         if num != 1:
-            print("pos_ini = ", posini, "num = ", num)
+            #print("pos_ini = ", posini, "num = ", num)
             for i in range(posini, posini+num):
                 matriz[i][fila] = 1
             if i+1 < size:
@@ -277,7 +277,6 @@ def verificar_num_bloque(matriz, bloques, first_number, last_number, posini, id)
 
 def pintar_cuadrados_vacios(matriz, array, indice, size, identificador):
     #Contar los cuadrados vacios y los pintados
-    print("hola")
     cuadrados_vacios = 0
     cuadrados_pintados = 0
     suma_numeros = 0
@@ -294,7 +293,7 @@ def pintar_cuadrados_vacios(matriz, array, indice, size, identificador):
                 cuadrados_vacios += 1
             if matriz[i][indice] == 1:
                 cuadrados_pintados += 1
-    print("suma_numero=",suma_numeros," suma pintados ",cuadrados_pintados," suma vacios ",cuadrados_vacios)
+    #print("suma_numero=",suma_numeros," suma pintados ",cuadrados_pintados," suma vacios ",cuadrados_vacios)
     #Si el numero de cuadrados pintados mas el numero de cuadrados vacios es igual a la
     #suma de los numeros del array (costados) entonces no existe otra posibilidad mas que pintar
     #todos los cuadrados vacios
@@ -306,5 +305,52 @@ def pintar_cuadrados_vacios(matriz, array, indice, size, identificador):
             if identificador == "columna":
                 if matriz[i][indice] == 0:
                     matriz[i][indice] = 1
+
+
+def delimitar_cuadrado(matriz, numero, indice, size, identificador):
+    #Se guarda la direccion del primer y ultima casilla pintada
+    primer_indice = -1
+    check_primer_indice = False
+    ultimo_indice = -1
+    for i in range(0, size):
+        if identificador == "fila":
+            #Guarda la primera posicion
+            if matriz[indice][i] == 1 and check_primer_indice == False:
+                primer_indice = i
+                check_primer_indice = True
+            #Guarda la ultima posicion
+            if matriz[indice][i] == 1:
+                ultimo_indice = i
+
+        if identificador == "columna":
+            #Guarda la primera posicion
+            if matriz[i][indice] == 1 and check_primer_indice == False:
+                primer_indice = i
+                check_primer_indice = True
+            #Guarda la ultima posicion
+            if matriz[i][indice] == 1:
+                ultimo_indice = i
+
+
+    #print("numero ",numero," primer indice ",primer_indice,"ultimo indice",ultimo_indice)
+    #Se el lado derecho del bloque
+    if(primer_indice + numero < size) and primer_indice != -1:
+        #Delimitar el lado derecho del bloque
+        for i in range(primer_indice+numero, size):
+            if identificador == "fila":
+                matriz[indice][i] = -1
+            if identificador == "columna":
+                matriz[i][indice] = -1
+
+    #Delimitar el lado izquierdo del bloque
+    if(ultimo_indice - numero >= 0) and ultimo_indice != -1:
+        for i in range(ultimo_indice-numero, -1, -1):
+            if identificador == "fila":
+                matriz[indice][i] = -1
+            if identificador == "columna":
+                matriz[i][indice] = -1
+
+
+
 
 

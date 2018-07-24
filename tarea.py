@@ -104,11 +104,16 @@ def main():
 
 
                 # verificar posibilidad de ingresar bloque
-                print("ultimo numero del array = ", last_number)
+                #print("ultimo numero del array = ", last_number)
                 rules.verificar_num_bloque(matriz, bloques, first_number, last_number, i,  "fila")
 
-        #Pintar cuadrados vacios
+            #Pintar cuadrados vacios
             rules.pintar_cuadrados_vacios(matriz, left[i], i, columns, "fila")
+
+            #Delimitar cuadrados
+            if tamano_bloque != 0 and tamano_array == 1:
+                num = int(left[i][0])
+                rules.delimitar_cuadrado(matriz, num, i, columns, "fila")
         print_matrix(matriz, rows, columns)
         input()
 
@@ -180,6 +185,11 @@ def main():
 
             # Pintar cuadrados vacios
             rules.pintar_cuadrados_vacios(matriz, top[j], j, rows, "columna")
+
+            #Delimitar cuadrado
+            if tamano_bloque != 0 and tamano_array == 1:
+                num = int(top[j][0])
+                rules.delimitar_cuadrado(matriz, num, j, rows, "columna")
         print_matrix(matriz, rows, columns)
         input()
 
