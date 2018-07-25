@@ -1,4 +1,5 @@
 from nonograma import rules
+
 inicio = -1
 check = False
 def main():
@@ -53,7 +54,7 @@ def main():
             var_inicio.append(-1)
             for j in range(0, columns):
                 rules.create_block(matriz, bloques, i, j, j, var_check, var_inicio, columns)
-            print("i=", i, " ", bloques)
+            #print("i=", i, " ", bloques)
             # Verificacion Estado
             rules.verificar_estado(matriz, i, columns, left[i], "fila")
             # Perfecto
@@ -127,7 +128,7 @@ def main():
             var_inicio.append(-1)
             for i in range(0, rows):
                 rules.create_block(matriz, bloques, i, j, i, var_check, var_inicio, rows)
-            print("j=", j, " ", bloques)
+            #print("j=", j, " ", bloques)
 
             # Verificar Estado
             rules.verificar_estado(matriz, j, rows, top[j], "columna")
@@ -205,9 +206,13 @@ def print_matrix(matriz, rows, columns):
     for i in range(rows):
         for j in range(columns):
             if matriz[i][j] == 1:
-                print("■ ", end='')
+                CRED = '\033[0m'
+                CEND = '\033[34m'
+                print(CEND+"■ "+CRED, end='')
             if matriz[i][j] == -1:
-                print("☒ ", end='')
+                CRED = '\033[0m'
+                CEND = '\033[31m'
+                print(CEND+"☒ "+CRED, end='')
             if matriz[i][j] == 0:
                 print("□ ", end='')
         print("")
